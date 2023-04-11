@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+SQLAlchemy
+sqlmodel>=0.0.4
+psycopg2-binary
+gunicorn
+passlib[bcrypt]
+python-jose[pycryptodome]
