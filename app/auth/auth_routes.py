@@ -12,13 +12,13 @@ from ..database import engine
 auth_router = APIRouter()
 
 
-@auth_router.post("/login", response_model=UserOut)
+@auth_router.post("/login")  # removed response_model=UserOut
 def login(user_in: UserIn):
     """
     Endpoint to authenticate a user and return an access token.
     """
     with Session(engine) as session:
-        user = session.query(User).filter(User.username == user_in.username).first()
+        user = session.query(User).filter(User.email == user_in.email).first()
         if not user or not verify_password(user_in.password, user.hashed_password):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
         access_token = create_access_token({"sub": user.username})
@@ -44,3 +44,12 @@ def read_users_me(current_user: User = Depends(get_current_active_user)):
     Endpoint to get the current user's information.
     """
     return current_user
+
+
+@auth_router.get("/users/superuser-only", response_model=UserOut)
+def get_superuser_only_data(current_user: User = Depends(get_current_active_superuser)):
+    """
+    Endpoint that can only be accessed by superusers.
+    """
+    return current_user
+

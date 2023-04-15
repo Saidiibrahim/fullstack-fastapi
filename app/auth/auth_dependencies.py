@@ -3,28 +3,30 @@ Module containing dependency functions for authentication and authorization.
 """
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, HTTPBearer
 from sqlmodel import Session
 from typing import Optional
 from .auth_models import User
 from .auth_utils import decode_access_token, JWTError
 from ..database import engine
+from fastapi.security import HTTPAuthorizationCredentials
 
 # OAuth2PasswordBearer is a class that provides a way to get the token from the request
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+oauth2_scheme = HTTPBearer()
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)) -> Optional[User]:
+def get_current_user(token: HTTPAuthorizationCredentials = Depends(oauth2_scheme)) -> Optional[User]:
     """
     Dependency function to get the current user based on the JWT token.
     """
+    token_str = token.credentials  # Extract the token string
     try:
-        payload = decode_access_token(token)
+        payload = decode_access_token(token_str)
         username: str = payload.get("sub")
         if username is None:
             raise ValueError("Invalid token")
         with Session(engine) as session:
-            user = session.get(User, username)
+            user = session.query(User).filter(User.username == username).first()
             if user is None:
                 raise ValueError("User not found")
             return user
