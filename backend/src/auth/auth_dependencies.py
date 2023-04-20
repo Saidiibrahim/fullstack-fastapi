@@ -3,11 +3,11 @@ Module containing dependency functions for authentication and authorization.
 """
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, HTTPBearer
+from fastapi.security import HTTPBearer
 from sqlmodel import Session
 from typing import Optional
-from .auth_models import User
-from .auth_utils import decode_access_token, JWTError
+from ..auth.auth_models import User
+from ..auth.auth_utils import decode_access_token, JWTError
 from ..database import engine
 from fastapi.security import HTTPAuthorizationCredentials
 

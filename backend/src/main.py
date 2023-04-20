@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from sqlmodel import Session
 from sqlmodel import SQLModel
 from .auth.auth_routes import auth_router
+#from auth.auth_routes import auth_router
 from .database import engine
-from .auth import auth_models
 
 app = FastAPI()
 

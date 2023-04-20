@@ -4,7 +4,7 @@ Module containing FastAPI endpoints for user authentication and authorization.
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
-from .auth_models import User, UserIn, UserOut
+from .auth_models import User, UserRegisterIn, UserOut, UserLoginIn
 from .auth_utils import get_password_hash, create_access_token, verify_password
 from .auth_dependencies import get_current_active_user, get_current_active_superuser
 from ..database import engine
@@ -13,7 +13,7 @@ auth_router = APIRouter()
 
 
 @auth_router.post("/login")  # removed response_model=UserOut
-def login(user_in: UserIn):
+def login(user_in: UserLoginIn):
     """
     Endpoint to authenticate a user and return an access token.
     """
@@ -26,7 +26,7 @@ def login(user_in: UserIn):
 
 
 @auth_router.post("/register", response_model=UserOut)
-def create_user(user_in: UserIn):
+def create_user(user_in: UserRegisterIn):
     """
     Endpoint to create a new user.
     """

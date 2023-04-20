@@ -18,7 +18,15 @@ class User(UserBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
 
 
-class UserIn(SQLModel):
+class UserRegisterIn(SQLModel):
+    first_name: str = Field(unique=True, index=True)
+    last_name: str = Field(unique=True, index=True)
+    username: str = Field(unique=True, index=True)
+    email: str
+    password: str
+
+
+class UserLoginIn(SQLModel):
     email: str
     password: str
 

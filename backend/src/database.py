@@ -4,7 +4,8 @@ from sqlmodel import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://myuser:mypassword@db:5432/mydatabase")
+#DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://myuser:mypassword@db:5432/mydatabase")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./mydatabase.db")
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
