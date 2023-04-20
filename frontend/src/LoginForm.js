@@ -1,9 +1,8 @@
-// src/LoginForm.js
 import React, { useState } from 'react';
 import { Button, TextField, Container, Typography } from '@mui/material';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
@@ -14,7 +13,7 @@ const LoginForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -36,10 +35,10 @@ const LoginForm = () => {
       </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
-          label="Username"
+          label="Email"
           variant="outlined"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           fullWidth
           margin="normal"
         />
