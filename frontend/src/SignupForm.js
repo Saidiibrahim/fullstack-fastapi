@@ -1,9 +1,12 @@
-// src/LoginForm.js
+// src/SignupForm.js
 import React, { useState } from 'react';
 import { Button, TextField, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
+const SignupForm = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -11,32 +14,55 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/auth/login', {
+      const response = await fetch('http://localhost:8000/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ first_name: firstName, last_name: lastName, username, email, password }),
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
+        throw new Error('Signup failed');
       }
 
-      const data = await response.json();
-      localStorage.setItem('access_token', data.access_token);
-      navigate('/funny-gif');
+      alert('Signup successful');
+      navigate('/login');
     } catch (error) {
-      alert('Login failed');
+      alert('Signup failed');
     }
   };
 
   return (
     <Container>
       <Typography variant="h4" component="h1" gutterBottom>
-        Login
+        Signup
       </Typography>
       <form onSubmit={handleSubmit}>
+        <TextField
+          label="First Name"
+          variant="outlined"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Last Name"
+          variant="outlined"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Username"
+          variant="outlined"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
         <TextField
           label="Email"
           variant="outlined"
@@ -55,11 +81,11 @@ const LoginForm = () => {
           margin="normal"
         />
         <Button type="submit" variant="contained" color="primary">
-          Login
+          Signup
         </Button>
       </form>
     </Container>
   );
 };
 
-export default LoginForm;
+export default SignupForm;
