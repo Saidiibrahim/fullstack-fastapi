@@ -1,10 +1,10 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
-import FunnyGif from './FunnyGif';
-import Welcome from './Welcome';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
+import FunnyGif from './components/FunnyGif';
+import Welcome from './components/Welcome';
 
 function App() {
   return (
