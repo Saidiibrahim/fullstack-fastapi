@@ -1,22 +1,22 @@
-// src/App.js
+// frontend/src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
-import FunnyGif from './components/FunnyGif';
-import Welcome from './components/Welcome';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import WelcomePage from './pages/Welcome';
+import LoginPage from './pages/Login';
+import SignupPage from './pages/Signup';
+import FunnyGifPage from './pages/FunnyGif';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/signup" element={<SignupForm />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/funny-gif" element={<FunnyGif />} />
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/funny-gif" element={<FunnyGifPage />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

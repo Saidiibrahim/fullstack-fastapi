@@ -1,19 +1,15 @@
-// src/FunnyGif.js
+// src/components/FunnyGif.tsx
 import React from 'react';
-import { Container, Typography, Box } from '@mui/material';
 
-const FunnyGif = () => {
-  const giphyUrl = 'https://media.giphy.com/media/9k28UPUVIrvWnhHkP1/giphy.gif';
+interface FunnyGifProps {
+  gifUrl: string;
+}
 
+const FunnyGif: React.FC<FunnyGifProps> = ({ gifUrl }) => {
   return (
-    <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Funny GIF
-      </Typography>
-      <Box>
-        <img src={giphyUrl} alt="Funny GIF from GIPHY" />
-      </Box>
-    </Container>
+    <div>
+      <img src={gifUrl} alt="Funny Gif" />
+    </div>
   );
 };
 

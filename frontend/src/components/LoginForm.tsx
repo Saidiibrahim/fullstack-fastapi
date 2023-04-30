@@ -1,34 +1,18 @@
-// src/LoginForm.js
+// src/components/LoginForm.tsx
 import React, { useState } from 'react';
 import { Button, TextField, Container, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
+interface LoginFormProps {
+  onSubmit: (email: string, password: string) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await fetch('http://localhost:8000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const data = await response.json();
-      localStorage.setItem('access_token', data.access_token);
-      navigate('/funny-gif');
-    } catch (error) {
-      alert('Login failed');
-    }
+    onSubmit(email, password);
   };
 
   return (

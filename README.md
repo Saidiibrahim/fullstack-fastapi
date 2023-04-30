@@ -11,6 +11,6 @@ This is a full-stack web application with a frontend built using React and a bac
 - Python 3.7+
 - Pipenv or another Python virtual environment manager
 
-## Installation
+## Running the backend
 
-1. Clone the repository:
+uvicorn src.asgi:app --reload

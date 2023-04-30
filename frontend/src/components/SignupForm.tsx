@@ -1,17 +1,15 @@
-// src/SignupForm.js
+// src/components/SignupForm.tsx
 import React, { useState } from 'react';
 import { Button, TextField, Container, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
-const SignupForm = () => {
+const SignupForm: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await fetch('http://localhost:8000/auth/register', {
@@ -23,20 +21,19 @@ const SignupForm = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Signup failed');
+        throw new Error('Registration failed');
       }
 
-      alert('Signup successful');
-      navigate('/login');
+      alert('Registration successful');
     } catch (error) {
-      alert('Signup failed');
+      alert('Registration failed');
     }
   };
 
   return (
     <Container>
       <Typography variant="h4" component="h1" gutterBottom>
-        Signup
+        Sign Up
       </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
@@ -81,7 +78,7 @@ const SignupForm = () => {
           margin="normal"
         />
         <Button type="submit" variant="contained" color="primary">
-          Signup
+          Sign Up
         </Button>
       </form>
     </Container>
