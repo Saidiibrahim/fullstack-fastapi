@@ -1,22 +1,12 @@
-// frontend/src/App.tsx
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import WelcomePage from './pages/Welcome';
-import LoginPage from './pages/Login';
-import SignupPage from './pages/Signup';
-import FunnyGifPage from './pages/FunnyGif';
+import React from "react";
+import Routes from "./Routes";
 
-const App: React.FC = () => {
+function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/funny-gif" element={<FunnyGifPage />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      <Routes />
+    </div>
   );
-};
+}
 
 export default App;
